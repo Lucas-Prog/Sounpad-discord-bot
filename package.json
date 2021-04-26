@@ -5,7 +5,8 @@
   "main": "soundPad.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon soundPad.js"
+    "run": "nodemon soundPad.js",
+    "start": "node soundPad.js"
   },
   "keywords": [
     "discord",
