@@ -38,14 +38,17 @@ client.on('message', async message =>{
                     let audioPath = `./audio/audio${args[0]}.mp3`;
                     if(message.member.voice.channel === null){
                         message.channel.send("Você deve estar em um canal de voz para me utilizar !");
+                    }else if(! message.member.voice.channel.permissionsFor(client.user).has('CONNECT')){
+                        message.channel.send("Eu não tenho permissão para acessar este canal de voz ;-;")
                     }else{
                         const connection = await message.member.voice.channel.join();
                         const dispatcher = connection.play(audioPath);
+                        const voiceChannel = message.member.voice.channel;
                         message.channel.send("Tocando `btn" + args[0] + "`");
 
                         dispatcher.on('finish', () =>{
                             dispatcher.destroy();
-                            message.member.voice.channel.leave();
+                            voiceChannel.leave();
                         });
                     }
                 }else{
@@ -78,7 +81,6 @@ const verificaAudio = fileNumber =>{
 
     try{
         if(fs.existsSync(`./audio/audio${fileNumber}.mp3`)){
-            console.log("Arquivo encontrado");
             retorno = true;
         }else{
             retorno = false;
