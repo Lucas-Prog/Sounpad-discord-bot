@@ -1,1 +1,1 @@
-web: node soundPad.js
+worker: node soundPad.js
